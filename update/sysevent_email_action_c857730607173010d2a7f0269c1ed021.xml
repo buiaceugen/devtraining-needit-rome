@@ -43,7 +43,9 @@
 <p><strong>Please complete this task as soon as possible. </strong></p>
 <p>&nbsp;</p>
 <p><strong> Click here to view the NeedIt Task record: ${URI_REF}. </strong></p>
-<p><strong>${mail_script:CountOverdueNeedItTasksAssignedTo}</strong></p>]]></message_html>
+<p><strong>${mail_script:CountOverdueNeedItTasksAssignedTo}</strong></p>
+<p>&nbsp;</p>
+<p><strong>${mailto:mailto.closeneedittask}</strong></p>]]></message_html>
         <message_list/>
         <message_text/>
         <name>Overdue NeedIt Task</name>
@@ -65,7 +67,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c857730607173010d2a7f0269c1ed021</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>Overdue NeedIt Task</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
@@ -73,7 +75,7 @@
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
         <sys_update_name>sysevent_email_action_c857730607173010d2a7f0269c1ed021</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2021-10-21 13:33:47</sys_updated_on>
+        <sys_updated_on>2021-10-25 07:51:39</sys_updated_on>
         <sys_version>2</sys_version>
         <template/>
         <type>email</type>
