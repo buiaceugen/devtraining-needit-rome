@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($uibModal, $scope, $sce) {
+    /* widget controller */
+    var c = this;
+    $scope.url = '';
+    c.openModal = function($event, storySysId) {
+        $event.preventDefault();
+        c.modalInstance = $uibModal.open({
+            templateUrl: 'modalTemplate',
+            size: "lg",
+            scope: $scope
+        });
+        $scope.url = $sce.trustAsResourceUrl('/rm_story.do?sys_id=' + storySysId);
+    };
+    c.closeModal = function() {
+        c.modalInstance.close();
+    };
+    checkIframe = function() {
+        var iframe = document.getElementById("iframe-container");
+        var closeIframe = document.getElementById("iframe-container-close");
+        var loading = document.getElementById("loading");
+        iframe.style.display = "block";
+        closeIframe.style.display = "block";
+        loading.style.display = "none";
+    };
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>a {&#13;
+  outline: none;&#13;
+}&#13;
+&#13;
+.mr-5 {&#13;
+  margin-right: 5px;&#13;
+}&#13;
+&#13;
+.pl-10 {&#13;
+  padding: 0 10px;&#13;
+}&#13;
+&#13;
+.prl-5 {&#13;
+  padding: 0 5px;&#13;
+}&#13;
+&#13;
+.badge-primary {&#13;
+  background-color: #278efc;&#13;
+}&#13;
+&#13;
+.progress {&#13;
+  margin-bottom: 0;&#13;
+  height: 14px;&#13;
+  background-color: #bddcfc;&#13;
+  border-radius: 0;&#13;
+}&#13;
+&#13;
+.progress-bar {&#13;
+  float: left;&#13;
+  width: 0%;&#13;
+  height: 100%;&#13;
+  font-size: 12px;&#13;
+  line-height: 18px;&#13;
+  color: #ffffff;&#13;
+  text-align: center;&#13;
+  background-color: #278efc;&#13;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);&#13;
+  -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);&#13;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);&#13;
+  -webkit-transition: width 0.6s ease;&#13;
+  -moz-transition: width 0.6s ease;&#13;
+  -o-transition: width 0.6s ease;&#13;
+  transition: width 0.6s ease;&#13;
+}&#13;
+&#13;
+.progress.warning &gt; .progress-bar {&#13;
+  background-color: #fc8a3d;&#13;
+}&#13;
+&#13;
+.panel-default &gt; .panel-heading {&#13;
+  background-color: #fff;&#13;
+  padding: 16px 6px;&#13;
+}&#13;
+&#13;
+.panel-default &gt; .panel-heading .interval {&#13;
+  color: #81878e;&#13;
+  margin-left: 20px;&#13;
+}&#13;
+&#13;
+.panel-default &gt; .panel-heading .interval,&#13;
+.panel-default &gt; .panel-heading .points {&#13;
+  font-size:13px;&#13;
+}&#13;
+&#13;
+.panel-group .panel, &#13;
+.panel-group .panel.panel-open {&#13;
+  border-radius: 0px;&#13;
+}&#13;
+&#13;
+.panel-group .panel + .panel {&#13;
+  margin-top: 15px;&#13;
+}&#13;
+&#13;
+.panel .panel-body {&#13;
+  overflow-x: auto;&#13;
+}&#13;
+&#13;
+.stories {&#13;
+  table-layout: fixed;&#13;
+  width: 1500px;&#13;
+}&#13;
+&#13;
+.stories th {&#13;
+  padding: 9.5px 8px; &#13;
+  line-height: 1.6;&#13;
+}&#13;
+&#13;
+.stories tr.story {&#13;
+  border-top: 1px solid #e6e8ea; &#13;
+  padding: 9.5px 8px; &#13;
+  line-height: 1.6;&#13;
+  font-size:13px&#13;
+}&#13;
+&#13;
+.stories tr.story:hover {&#13;
+  background-color: #e6e8ea;&#13;
+}&#13;
+&#13;
+.stories tr.story td {&#13;
+  padding: 9.5px 8px; &#13;
+  line-height: 1.6; &#13;
+  font-size:13px;&#13;
+  overflow: hidden;&#13;
+  white-space: nowrap;&#13;
+  text-overflow: ellipsis;&#13;
+  max-width: 150px;&#13;
+}&#13;
+&#13;
+.stories tr.story td a {&#13;
+  color: #000;&#13;
+  border-bottom: 1px solid #000;&#13;
+}&#13;
+&#13;
+#iframe-container {&#13;
+  display:none;&#13;
+  position: relative;&#13;
+  overflow: hidden;&#13;
+  width: 100%;&#13;
+  padding-top: 100%;&#13;
+}&#13;
+&#13;
+iframe {&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  bottom: 0;&#13;
+  right: 0;&#13;
+  width: 100%;&#13;
+  height: 100%;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Public agile board Needit</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+    data.sprintItems = {};
+    data.keys = [];
+    var currentSprint = new GlideRecord('rm_sprint');
+    currentSprint.addEncodedQuery('assignment_group=26092ac04f34330040a13cb28110c722^state!=3^ORstate=NULL');
+    currentSprint.query();
+    while (currentSprint.next()) {
+        data.sprintItems[currentSprint.getDisplayValue('number')] = {
+            title: currentSprint.getDisplayValue('short_description'),
+            start: currentSprint.start_date.getByFormat('yyyy-MM-dd'),
+            end: currentSprint.end_date.getByFormat('yyyy-MM-dd'),
+            content: [],
+            points: 0,
+            capacity: 0,
+            open: false
+        };
+
+        var sprintStories = new GlideRecord('rm_story');
+        sprintStories.addQuery('parent', currentSprint.sys_id);
+        sprintStories.query();
+        while (sprintStories.next()) {
+            data.sprintItems[currentSprint.getDisplayValue('number')]['content'].push({
+                number: sprintStories.getDisplayValue('number'),
+                sys_id: sprintStories.getValue('sys_id'),
+                short_description: sprintStories.getDisplayValue('short_description'),
+                epic: sprintStories.getDisplayValue('epic'),
+                points: sprintStories.getDisplayValue('story_points'),
+                state: sprintStories.getDisplayValue('state'),
+                release: sprintStories.getDisplayValue('release'),
+                assigned_to: sprintStories.getDisplayValue('assigned_to'),
+                priority: sprintStories.getDisplayValue('priority'),
+                product: sprintStories.getDisplayValue('product'),
+
+            });
+            data.sprintItems[currentSprint.getDisplayValue('number')]['points'] += sprintStories.story_points;
+
+
+        }
+
+        data.sprintItems[currentSprint.getDisplayValue('number')]['capacity'] = Math.floor((data.sprintItems[currentSprint.getDisplayValue('number')]['points'] / currentSprint.team_points) * 100);
+
+    }
+    data.backlog = {
+        title: 'Backlog',
+        content: [],
+        points: 0,
+        capacity: 0,
+        open: true
+    };
+    var backlog = new GlideRecord('rm_story');
+    backlog.addEncodedQuery('sys_class_name=rm_story^active=true^sprintISEMPTY^original_task.active=true^assignment_group=26092ac04f34330040a13cb28110c722');
+    backlog.query();
+    while (backlog.next()) {
+        data.backlog['content'].push({
+            number: backlog.getDisplayValue('number'),
+            sys_id: backlog.getValue('sys_id'),
+            short_description: backlog.getDisplayValue('short_description'),
+            epic: backlog.getDisplayValue('epic'),
+            points: backlog.getDisplayValue('story_points'),
+            state: backlog.getDisplayValue('state'),
+            release: backlog.getDisplayValue('release'),
+            assigned_to: backlog.getDisplayValue('assigned_to'),
+            priority: backlog.getDisplayValue('priority'),
+            product: backlog.getDisplayValue('product'),
+        });
+    }
+    data.keys = Object.keys(data.sprintItems).sort(function(a, b) {
+        return a - b;
+    });
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-01-19 10:24:58</sys_created_on>
+        <sys_id>4e6ffe4f878901101e07a68d0ebb35ad</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Public agile board Needit</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sp_widget_4e6ffe4f878901101e07a68d0ebb35ad</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-01-19 10:47:53</sys_updated_on>
+        <template><![CDATA[<script type="text/ng-template" id="modalTemplate">
+<div style="position: relative; overflow: hidden; width: 100%; padding-top: 70%;">
+	<iframe src="{{url}}" id="iframe-container" onload="checkIframe()" title="description" style="display:none; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 114%;"></iframe> 
+    <div align="center" style="position: absolute; top: 25%; text-align: center; width: 100%;" id="loading">
+    	<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    	<span class="sr-only">Loading...</span>
+  </div>
+    <i id="iframe-container-close" ng-click="c.closeModal()" class="glyphicon glyphicon-remove" style="display:none; position: absolute; right: 7px; top: 7px; font-size: 30px;"></i>
+  </div>
+</script>
+
+<div ng-controller="AccordionCtrl">
+  <uib-accordion close-others="true">
+    <div uib-accordion-group class="panel-default" ng-repeat="sprint in data.keys" is-open="data.sprintItems[sprint].open">
+      <uib-accordion-heading>
+        <i class="pull-left glyphicon mr-5 prl-5" ng-class="{'glyphicon-chevron-down': data.sprintItems[sprint].open, 'glyphicon-chevron-right': !data.sprintItems[sprint].open}"> </i> 
+        <b>{{data.sprintItems[sprint].title}}</b> 
+        <span class="interval"> {{data.sprintItems[sprint].start}} - {{data.sprintItems[sprint].end}} </span>
+        <div class="col-sm-1 pull-right">
+          <uib-progressbar value="data.sprintItems[sprint].capacity" ng-class="{'warning': data.sprintItems[sprint].capacity > 100}" max="100"></uib-progressbar>
+        </div>
+        <div class="pull-right points"> 
+          {{data.sprintItems[sprint].points}} story points 
+          <span ng-if="data.sprintItems[sprint].capacity > 0">
+            |  {{data.sprintItems[sprint].capacity}}% group capacity
+          </span>
+        </div>
+      </uib-accordion-heading>
+      <table class="stories">
+        <tr> 
+           <th style="width: 8.5%;">Number</th> 
+          <th style="width: 30%;">Short Description</th> 
+          <th style="width: 18.75%;">Epic</th> 
+          <th style="width: 6.25%;">Points</th> 
+          <th style="width: 12.5%;">State</th> 
+          <th style="width: 12.5%;">Release</th> 
+          <th style="width: 12.5%;">Assigned to</th> 
+          <th style="width: 12.5%;">Priority</th> 
+          <th style="width: 12.5%;">Product</th> 
+          <!--th>Number</th> 
+          <th>Short Description</th> 
+          <th>Epic</th> 
+          <th>Points</th> 
+          <th>State</th> 
+          <th>Release</th> 
+          <th>Assigned to</th> 
+          <th>Priority</th> 
+          <th>Product</th--> 
+        </tr>
+        <tr ng-repeat="story in data.sprintItems[sprint].content" class="story">
+          <td ng-click="c.openModal($event, story.sys_id)"> 
+            <a href="/rm_story.do?sys_id={{story.short_description}}">
+              {{story.number}}
+            </a>
+          </td>
+          <td>{{story.short_description}}</td>
+          <td>{{story.epic}}</td>
+          <td><span class="badge badge-primary">{{story.points}}</span></td>
+          <td>{{story.state}}</td>
+          <td>{{story.release}}</td>
+          <td>{{story.assigned_to}}</td>
+          <td>{{story.priority}}</td>
+          <td>{{story.product}}</td>
+        </tr>
+      </table>
+    </div>
+  </uib-accordion>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <b class="pl-10">Backlog</b>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <table class="stories">
+        <tr> 
+          <th style="width: 8.5%;">Number</th> 
+          <th style="width: 30%;">Short Description</th> 
+          <th style="width: 18.75%;">Epic</th> 
+          <th style="width: 6.25%;">Points</th> 
+          <th style="width: 12.5%;">State</th> 
+          <th style="width: 12.5%;">Release</th> 
+          <th style="width: 12.5%;">Assigned to</th> 
+          <th style="width: 12.5%;">Priority</th> 
+          <th style="width: 12.5%;">Product</th> 
+        </tr>
+        <tr ng-repeat="story in data.backlog.content" class="story">
+          <td ng-click="c.openModal($event, story.sys_id)"> 
+            <a href="/rm_story.do?sys_id={{story.short_description}}">
+              {{story.number}}
+            </a>
+          </td>
+          <td>{{story.short_description}}</td>
+          <td>{{story.epic}}</td>
+          <td><span class="badge badge-primary">{{story.points}}</span></td>
+          <td>{{story.state}}</td>
+          <td>{{story.release}}</td>
+          <td>{{story.assigned_to}}</td>
+          <td>{{story.priority}}</td>
+          <td>{{story.product}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>
